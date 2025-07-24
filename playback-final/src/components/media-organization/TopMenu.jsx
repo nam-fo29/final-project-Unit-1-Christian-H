@@ -1,5 +1,9 @@
 import { Link } from "react-router";
 import "./media-org-css/TopMenu.css";
+import "../../pages/pages-css/media-queries.css"
+
+//The TopMenu component holds the nav bar. It was originally in App.jsx before I pulled it out for reusability and styling.
+//The <span> in Line 11 allows me to add specific styling to that character.
 
 const TopMenu = () => {
     return (

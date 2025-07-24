@@ -1,6 +1,7 @@
 import MediaList from "../components/media-organization/MediaList";
+import './pages-css/ListPages.css';
 
-//Similar to Rewind.jsx, this component is another list but is a distinct feature. UpNext.jsx is intended for the user to add media that they wish to experience later on. Usually refered to as a "watch list" This page features handleAddAndRemove, an event handler connected to the "Add to Rewind" button that simultaneously adds media to the Rewind list and deletes it from UpNext.
+//Similar to Rewind.jsx, this component is another list but is a distinct feature. UpNext.jsx is intended for the user to add media that they wish to experience later on. Usually refered to as a "watch list", this page features handleAddAndRemove, an event handler connected to the "Add to Rewind" button that simultaneously adds media to the Rewind list and deletes it from UpNext. UpNext had the same state issue as Rewind and was fixed during the testing and debugging phase.
 
 const UpNext = ({ lists, onAddToList, onDeleteFromList }) => {
     const mediaSortType = ["Movies", "TV Shows", "Video Games", "Books"];

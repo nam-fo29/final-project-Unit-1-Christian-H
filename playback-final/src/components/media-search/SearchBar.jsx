@@ -13,7 +13,7 @@ const SearchBar = ({ onSearch }) => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        const validQuery = query.trim(); //Edge case handling. Trims extra spaces and checks for searches that are to short. Returns feedback for both on UI.
+        const validQuery = query.trim(); //Edge case handling. Trims extra spaces and checks for searches that are too short. Returns feedback for both on UI.
         if (!validQuery) {
             setError("Please enter a valid search");
             return;
