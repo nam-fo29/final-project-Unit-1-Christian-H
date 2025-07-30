@@ -1,6 +1,6 @@
 @media only screen
 /* iPhone 16 Pro */
-and (width: 440px) and (height:956px) and (-webkit-device-pixel-ratio: 3) {
+and (max-width: 402px) and (max-height:874px) and (-webkit-device-pixel-ratio: 3) {
 
     .top-menu {
         flex-direction: column;
@@ -74,6 +74,8 @@ and (width: 440px) and (height:956px) and (-webkit-device-pixel-ratio: 3) {
 
     .media-card-content {
         display: flex;
+        flex-direction: column;
+        align-items: center;
     }
 
     .media-card p {
