@@ -9,8 +9,8 @@ const MediaCard = ({ media, onAddToList, showDelete, onDelete, hideUpNextButton 
         {media.poster ? <img className="media-poster" src={media.poster} alt={media.title} /> : null}
         <div className="media-card-content">
             <h3>{media.title}</h3>
-            <p>Type: {media.type}</p>
-            {media.year && <p>Year: {media.year}</p>}
+            {media.rated && <p className="media-card-info">{media.rated}</p>}
+            <p className="media-card-info">Year: {media.year}</p>
             {(onAddToList || showDelete) && (
                 <div className="media-card-buttons">
                     {onAddToList && (

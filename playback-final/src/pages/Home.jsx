@@ -17,20 +17,29 @@ const Home = ({ onAddToList }) => {
         setError(null);
         try {
             if (type === "Movies" || type === "TV Shows") {
-                const response = await fetch(`https://www.omdbapi.com/?apikey=${OMDB_API_KEY}&s=${query}&type=${type === "TV Shows" ? "series" : "movie"}`);
+                const response = await fetch(`https://www.omdbapi.com/?apikey=${OMDB_API_KEY}&s=${query}&i=${query}&type=${type === "TV Shows" ? "series" : "movie"}`);
                 const json = await response.json();
                 if (json.Response === "False") {
                     throw new Error(json.Error || "No results found");
                 }
 
-                //Above is where the program uses fetch to request data from my 3 APIs. Only two of them needed keys and one of the API's covered two media types. Below is where the data I need from the API is taken via map().
+                const moreDetails = json.Search.map(async (item) => {
+                    const detailResponse = await fetch(
+                        `https://www.omdbapi.com/?apikey=${OMDB_API_KEY}&i=${item.imdbID}`
+                    );
+                    const details = await detailResponse.json();
+                    return {
+                        title: details.Title,
+                        type,
+                        year: details.Year,
+                        poster: details.Poster,
+                        rated: details.Rated
+                    }
+                });
 
-                mediaData = json.Search.map(item => ({
-                    title: item.Title,
-                    type,
-                    year: item.Year,
-                    poster: item.Poster
-                }));
+                mediaData = await Promise.all(moreDetails);
+
+                //Above is where the program uses fetch to request data from my 3 APIs. Only two of them needed keys and one of the API's covered two media types. Below is where the data I need from the API is taken via map().
 
             } else if (type === "Video Games") {
                 const response = await fetch(`https://api.rawg.io/api/games?key=${RAWG_API_KEY}&search=${query}`);
@@ -43,7 +52,8 @@ const Home = ({ onAddToList }) => {
                     title: game.name,
                     type,
                     year: game.released,
-                    poster: game.background_image
+                    poster: game.background_image,
+                    rated: game.esrb_rating?.name
                 }));
             } else if (type === "Books") {
                 const response = await fetch(`https://www.googleapis.com/books/v1/volumes?q=${query}`);
@@ -53,7 +63,8 @@ const Home = ({ onAddToList }) => {
                         title: book.volumeInfo.title,
                         year: book.volumeInfo.publishedDate,
                         type,
-                        poster: book.volumeInfo.imageLinks?.thumbnail
+                        poster: book.volumeInfo.imageLinks?.thumbnail,
+                        rated: book.volumeInfo.categories?.[0]
                     }));
                 }
             }

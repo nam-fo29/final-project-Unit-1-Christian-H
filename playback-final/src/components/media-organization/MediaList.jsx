@@ -8,9 +8,9 @@ const MediaList = ({ list, title, onAddToList, showDelete = false, onDelete, hid
         return null; //Catches a search that yields no results.
     }
     return (
-        <ul className="media-list">
+        <div className="media-list">
             <h2 className="search-results">{title}</h2>
-            <li className="media-items">
+            <div className="media-items">
                 {list.map((media, i) => (
                     <MediaCard key={i} 
                     media={media} 
@@ -19,8 +19,8 @@ const MediaList = ({ list, title, onAddToList, showDelete = false, onDelete, hid
                     onDelete={onDelete} 
                     hideUpNextButton={hideUpNextButton} />
                 ))}
-            </li>
-        </ul>
+            </div>
+        </div>
     );
 };
 
